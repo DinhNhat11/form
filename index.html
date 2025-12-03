@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Shield - Industry Validation Survey</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=Fraunces:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --accent: #e94560;
+            --secondary: #0f3460;
+            --light: #f5f5f5;
+            --text: #2d2d2d;
+            --border: #e0e0e0;
+            --success: #2d7a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 50px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(233, 69, 96, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .header h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.1;
+        }
+
+        .header .subtitle {
+            font-size: 1.3rem;
+            font-weight: 500;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .instructions {
+            background: #fff9e6;
+            border-left: 4px solid var(--accent);
+            padding: 20px 40px;
+            font-size: 0.95rem;
+        }
+
+        .instructions ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .instructions li {
+            padding: 5px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .instructions li::before {
+            content: '•';
+            position: absolute;
+            left: 8px;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .form-content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            animation: slideIn 0.5s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.15s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.25s; }
+        .section:nth-child(5) { animation-delay: 0.3s; }
+        .section:nth-child(6) { animation-delay: 0.35s; }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .section-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--accent);
+            display: inline-block;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Work Sans', sans-serif;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checkbox-item,
+        .radio-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+            cursor: pointer;
+        }
+
+        .checkbox-item:hover,
+        .radio-item:hover {
+            background: #f8f8f8;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+
+        .checkbox-item label,
+        .radio-item label {
+            margin: 0;
+            font-weight: 400;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .rank-instruction {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 12px;
+        }
+
+        .rank-item {
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            align-items: center;
+            padding: 12px;
+            border-radius: 8px;
+            background: #f8f8f8;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .rank-item:hover {
+            background: #f0f0f0;
+        }
+
+        .rank-item input[type="number"] {
+            width: 50px;
+            padding: 8px;
+            text-align: center;
+            border: 2px solid var(--border);
+        }
+
+        .rank-item label {
+            margin: 0;
+            font-weight: 400;
+            padding-left: 12px;
+        }
+
+        .info-box {
+            background: #e6f3ff;
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .info-box strong {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .submit-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(to bottom, white, #f5f5f5);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--accent) 0%, #c73652 100%);
+            color: white;
+            border: none;
+            padding: 18px 60px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Success Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 50px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlide 0.4s ease;
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            animation: checkmark 0.6s ease;
+        }
+
+        @keyframes checkmark {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-icon::after {
+            content: '✓';
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .modal-content h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .modal-content p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .close-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .header .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .form-content {
+                padding: 30px 20px;
+            }
+
+            .header {
+                padding: 40px 20px;
+            }
+
+            .instructions {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .modal-content {
+                margin: 20px;
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Urban Shield</h1>
+            <div class="subtitle">Industry Validation Survey</div>
+        </div>
+
+        <div class="instructions">
+            <ul>
+                <li>This survey validates market need for a high-performance construction enclosure system</li>
+                <li>Takes approximately 10-15 minutes to complete</li>
+                <li>All responses confidential</li>
+            </ul>
+        </div>
+
+        <form id="surveyForm" class="form-content">
+            <!-- Section 1: Respondent Information -->
+            <div class="section">
+                <h2 class="section-title">Section 1: Respondent Information</h2>
+
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="company">Company:</label>
+                    <input type="text" id="company" name="company">
+                </div>
+
+                <div class="form-group">
+                    <label for="position">Position/Title:</label>
+                    <input type="text" id="position" name="position">
+                </div>
+
+                <div class="form-group">
+                    <label for="years">Years in Construction:</label>
+                    <input type="text" id="years" name="years">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email">
+                </div>
+
+                <div class="form-group">
+                    <label>Company Type (check all that apply):</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="type1" name="companyType" value="general">
+                            <label for="type1">General Contractor</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="type2" name="companyType" value="developer">
+                            <label for="type2">Developer/Owner</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="type3" name="companyType" value="specialty">
+                            <label for="type3">Specialty Contractor</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="type4" name="companyType" value="rental">
+                            <label for="type4">Equipment Rental Company</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Current Winter Construction Practices -->
+            <div class="section">
+                <h2 class="section-title">Section 2: Current Winter Construction Practices</h2>
+
+                <div class="form-group">
+                    <label>1. How often does your company perform winter construction in Winnipeg?</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="freq1" name="winterFrequency" value="frequently">
+                            <label for="freq1">Frequently (Nov-Mar every year)</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="freq2" name="winterFrequency" value="occasionally">
+                            <label for="freq2">Occasionally (some winters)</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="freq3" name="winterFrequency" value="rarely">
+                            <label for="freq3">Rarely</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="freq4" name="winterFrequency" value="never">
+                            <label for="freq4">Never</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>2. What enclosure methods do you currently use? (check all that apply)</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="method1" name="enclosureMethods" value="poly">
+                            <label for="method1">Standard polyethylene tarps</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="method2" name="enclosureMethods" value="insulated">
+                            <label for="method2">Insulated tarps</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="method3" name="enclosureMethods" value="shrink">
+                            <label for="method3">Shrink wrap</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="method4" name="enclosureMethods" value="plywood">
+                            <label for="method4">Plywood hoarding</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="method5" name="enclosureMethods" value="other">
+                            <label for="method5">Other:</label>
+                        </div>
+                    </div>
+                    <input type="text" id="methodOther" name="enclosureMethodsOther" placeholder="Please specify" style="margin-top: 10px;">
+                </div>
+
+                <div class="form-group">
+                    <label>3. Typical monthly heating costs for winter hoarding (per project):</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="heat1" name="heatingCosts" value="under5k">
+                            <label for="heat1">Under $5,000</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="heat2" name="heatingCosts" value="5k-10k">
+                            <label for="heat2">$5,000 - $10,000</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="heat3" name="heatingCosts" value="10k-20k">
+                            <label for="heat3">$10,000 - $20,000</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="heat4" name="heatingCosts" value="over20k">
+                            <label for="heat4">Over $20,000</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="heat5" name="heatingCosts" value="unknown">
+                            <label for="heat5">Don't know/Not tracked</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Problem Recognition & Impact -->
+            <div class="section">
+                <h2 class="section-title">Section 3: Problem Recognition & Impact</h2>
+
+                <div class="form-group">
+                    <label>4. How frequently do you experience noise complaints on infill projects?</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="noise1" name="noiseComplaints" value="very">
+                            <label for="noise1">Very frequently (most projects)</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="noise2" name="noiseComplaints" value="sometimes">
+                            <label for="noise2">Sometimes (some projects)</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="noise3" name="noiseComplaints" value="rarely">
+                            <label for="noise3">Rarely</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="noise4" name="noiseComplaints" value="never">
+                            <label for="noise4">Never</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="noise5" name="noiseComplaints" value="na">
+                            <label for="noise5">Not applicable (we don't do infill)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>5. How much do noise bylaws/restrictions impact your project schedules?</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="impact1" name="noiseImpact" value="significant">
+                            <label for="impact1">Significant impact (adds weeks)</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="impact2" name="noiseImpact" value="moderate">
+                            <label for="impact2">Moderate impact (adds days)</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="impact3" name="noiseImpact" value="minor">
+                            <label for="impact3">Minor impact</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="impact4" name="noiseImpact" value="none">
+                            <label for="impact4">No impact</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>6. Rate the challenge of dust/particulate containment on your projects:</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="dust1" name="dustChallenge" value="major">
+                            <label for="dust1">Major challenge</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="dust2" name="dustChallenge" value="moderate">
+                            <label for="dust2">Moderate challenge</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="dust3" name="dustChallenge" value="minor">
+                            <label for="dust3">Minor challenge</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="dust4" name="dustChallenge" value="not">
+                            <label for="dust4">Not a challenge</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Urban Shield Solution Validation -->
+            <div class="section">
+                <h2 class="section-title">Section 4: Urban Shield Solution Validation</h2>
+
+                <div class="info-box">
+                    <strong>Urban Shield:</strong>
+                    Composite construction enclosure with R-6 thermal insulation, STC-32 acoustic damping, dust containment, and custom printable exterior. Available as rental system.
+                </div>
+
+                <div class="form-group">
+                    <label>7. Based on this description, how interested would you be in using Urban Shield?</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="interest1" name="interest" value="very">
+                            <label for="interest1">Very interested - would trial immediately</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="interest2" name="interest" value="somewhat">
+                            <label for="interest2">Somewhat interested - would like more info</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="interest3" name="interest" value="neutral">
+                            <label for="interest3">Neutral</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="interest4" name="interest" value="not">
+                            <label for="interest4">Not interested</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>8. Which features are MOST valuable? (rank top 3: write 1, 2, 3)</label>
+                    <div class="rank-instruction">Enter 1 for most valuable, 2 for second most, 3 for third most</div>
+                    <div class="rank-item">
+                        <input type="number" id="rank1" name="rank1" min="1" max="3">
+                        <label for="rank1">Thermal insulation (R-6) - reduced heating costs</label>
+                    </div>
+                    <div class="rank-item">
+                        <input type="number" id="rank2" name="rank2" min="1" max="3">
+                        <label for="rank2">Acoustic damping (STC-32) - extended work hours</label>
+                    </div>
+                    <div class="rank-item">
+                        <input type="number" id="rank3" name="rank3" min="1" max="3">
+                        <label for="rank3">Dust containment - negative pressure capable</label>
+                    </div>
+                    <div class="rank-item">
+                        <input type="number" id="rank4" name="rank4" min="1" max="3">
+                        <label for="rank4">Custom printing - marketing/billboard revenue</label>
+                    </div>
+                    <div class="rank-item">
+                        <input type="number" id="rank5" name="rank5" min="1" max="3">
+                        <label for="rank5">Reusable system - environmental benefits</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>9. At what rental price would Urban Shield be attractive? (per linear foot/month)</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="price1" name="price" value="under2">
+                            <label for="price1">Under $2.00</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="price2" name="price" value="2-3">
+                            <label for="price2">$2.00 - $3.00</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="price3" name="price" value="3-4">
+                            <label for="price3">$3.00 - $4.00</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="price4" name="price" value="over4">
+                            <label for="price4">Over $4.00</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="price5" name="price" value="depends">
+                            <label for="price5">Depends on proven performance</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>10. What payback period would justify trying Urban Shield?</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="payback1" name="payback" value="immediate">
+                            <label for="payback1">Immediate savings within first project</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="payback2" name="payback" value="3months">
+                            <label for="payback2">Within 3 months</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="payback3" name="payback" value="6months">
+                            <label for="payback3">Within 6 months</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="payback4" name="payback" value="1year">
+                            <label for="payback4">Within 1 year</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Concerns & Critical Success Factors -->
+            <div class="section">
+                <h2 class="section-title">Section 5: Concerns & Critical Success Factors</h2>
+
+                <div class="form-group">
+                    <label>11. What concerns would you have about adopting Urban Shield? (check all)</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="concern1" name="concerns" value="weight">
+                            <label for="concern1">Weight/structural load on scaffolding</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="concern2" name="concerns" value="wind">
+                            <label for="concern2">Wind load/safety in high winds</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="concern3" name="concerns" value="installation">
+                            <label for="concern3">Installation complexity/time</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="concern4" name="concerns" value="durability">
+                            <label for="concern4">Durability/damage on job site</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="concern5" name="concerns" value="cost">
+                            <label for="concern5">Rental cost vs. current methods</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="concern6" name="concerns" value="none">
+                            <label for="concern6">No major concerns</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>12. What would be critical for success? (rank top 3: write 1, 2, 3)</label>
+                    <div class="rank-instruction">Enter 1 for most critical, 2 for second most, 3 for third most</div>
+                    <div class="rank-item">
+                        <input type="number" id="critical1" name="critical1" min="1" max="3">
+                        <label for="critical1">Proven fuel cost savings with data</label>
+                    </div>
+                    <div class="rank-item">
+                        <input type="number" id="critical2" name="critical2" min="1" max="3">
+                        <label for="critical2">City approval for noise exemption permits</label>
+                    </div>
+                    <div class="rank-item">
+                        <input type="number" id="critical3" name="critical3" min="1" max="3">
+                        <label for="critical3">Engineering certification for wind/structural loads</label>
+                    </div>
+                    <div class="rank-item">
+                        <input type="number" id="critical4" name="critical4" min="1" max="3">
+                        <label for="critical4">Fire safety certification (CAN/ULC-S109)</label>
+                    </div>
+                    <div class="rank-item">
+                        <input type="number" id="critical5" name="critical5" min="1" max="3">
+                        <label for="critical5">Easy installation (2-person crew or less)</label>
+                    </div>
+                    <div class="rank-item">
+                        <input type="number" id="critical6" name="critical6" min="1" max="3">
+                        <label for="critical6">Local inventory/quick availability</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>13. Would you be interested in participating in a pilot program?</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="pilot1" name="pilot" value="yes">
+                            <label for="pilot1">Yes - contact me to discuss</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="pilot2" name="pilot" value="maybe">
+                            <label for="pilot2">Maybe - need more information first</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="pilot3" name="pilot" value="no">
+                            <label for="pilot3">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: Additional Feedback -->
+            <div class="section">
+                <h2 class="section-title">Section 6: Additional Feedback</h2>
+
+                <div class="form-group">
+                    <label for="comments">14. Any additional comments, concerns, or suggestions:</label>
+                    <textarea id="comments" name="comments" rows="6"></textarea>
+                </div>
+            </div>
+
+            <div class="submit-section">
+                <button type="submit" class="submit-btn">Submit Survey</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="success-icon"></div>
+            <h2>Thank You!</h2>
+            <p>Your survey has been successfully submitted.<br>We appreciate your valuable feedback!</p>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Scroll to top for better modal visibility
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Show success modal with slight delay for smooth scroll
+            setTimeout(function() {
+                document.getElementById('successModal').classList.add('show');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }, 300);
+            
+            // Optional: Log form data to console (for development)
+            const formData = new FormData(this);
+            console.log('Form data submitted:', Object.fromEntries(formData));
+            
+            // Reset form after showing modal
+            setTimeout(() => {
+                document.getElementById('surveyForm').reset();
+            }, 500);
+        });
+
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('show');
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+
+        // Close modal when clicking outside of it
+        document.getElementById('successModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
